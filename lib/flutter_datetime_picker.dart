@@ -14,23 +14,23 @@ export 'package:flutter_datetime_picker/src/i18n_model.dart';
 
 typedef DateChangedCallback(DateTime time);
 typedef DateCancelledCallback();
-typedef String? StringAtIndexCallBack(int index);
+typedef String StringAtIndexCallBack(int index);
 
 class DatePicker {
   ///
   /// Display date picker bottom sheet.
   ///
-  static Future<DateTime?> showDatePicker(
+  static Future<DateTime> showDatePicker(
     BuildContext context, {
     bool showTitleActions: true,
-    DateTime? minTime,
-    DateTime? maxTime,
-    DateChangedCallback? onChanged,
-    DateChangedCallback? onConfirm,
-    DateCancelledCallback? onCancel,
+    DateTime minTime,
+    DateTime maxTime,
+    DateChangedCallback onChanged,
+    DateChangedCallback onConfirm,
+    DateCancelledCallback onCancel,
     locale: LocaleType.en,
-    DateTime? currentTime,
-    DatePickerTheme? theme,
+    DateTime currentTime,
+    DatePickerTheme theme,
   }) async {
     return await Navigator.push(
       context,
@@ -56,16 +56,16 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet.
   ///
-  static Future<DateTime?> showTimePicker(
+  static Future<DateTime> showTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
     bool showSecondsColumn: true,
-    DateChangedCallback? onChanged,
-    DateChangedCallback? onConfirm,
-    DateCancelledCallback? onCancel,
+    DateChangedCallback onChanged,
+    DateChangedCallback onConfirm,
+    DateCancelledCallback onCancel,
     locale: LocaleType.en,
-    DateTime? currentTime,
-    DatePickerTheme? theme,
+    DateTime currentTime,
+    DatePickerTheme theme,
   }) async {
     return await Navigator.push(
       context,
@@ -90,15 +90,15 @@ class DatePicker {
   ///
   /// Display time picker bottom sheet with AM/PM.
   ///
-  static Future<DateTime?> showTime12hPicker(
+  static Future<DateTime> showTime12hPicker(
     BuildContext context, {
     bool showTitleActions: true,
-    DateChangedCallback? onChanged,
-    DateChangedCallback? onConfirm,
-    DateCancelledCallback? onCancel,
+    DateChangedCallback onChanged,
+    DateChangedCallback onConfirm,
+    DateCancelledCallback onCancel,
     locale: LocaleType.en,
-    DateTime? currentTime,
-    DatePickerTheme? theme,
+    DateTime currentTime,
+    DatePickerTheme theme,
   }) async {
     return await Navigator.push(
       context,
@@ -122,17 +122,17 @@ class DatePicker {
   ///
   /// Display date&time picker bottom sheet.
   ///
-  static Future<DateTime?> showDateTimePicker(
+  static Future<DateTime> showDateTimePicker(
     BuildContext context, {
     bool showTitleActions: true,
-    DateTime? minTime,
-    DateTime? maxTime,
-    DateChangedCallback? onChanged,
-    DateChangedCallback? onConfirm,
-    DateCancelledCallback? onCancel,
+    DateTime minTime,
+    DateTime maxTime,
+    DateChangedCallback onChanged,
+    DateChangedCallback onConfirm,
+    DateCancelledCallback onCancel,
     locale: LocaleType.en,
-    DateTime? currentTime,
-    DatePickerTheme? theme,
+    DateTime currentTime,
+    DatePickerTheme theme,
   }) async {
     return await Navigator.push(
       context,
@@ -158,15 +158,15 @@ class DatePicker {
   ///
   /// Display date picker bottom sheet witch custom picker model.
   ///
-  static Future<DateTime?> showPicker(
+  static Future<DateTime> showPicker(
     BuildContext context, {
     bool showTitleActions: true,
-    DateChangedCallback? onChanged,
-    DateChangedCallback? onConfirm,
-    DateCancelledCallback? onCancel,
+    DateChangedCallback onChanged,
+    DateChangedCallback onConfirm,
+    DateCancelledCallback onCancel,
     locale: LocaleType.en,
-    BasePickerModel? pickerModel,
-    DatePickerTheme? theme,
+    BasePickerModel pickerModel,
+    DatePickerTheme theme,
   }) async {
     return await Navigator.push(
       context,
@@ -191,20 +191,20 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     this.onChanged,
     this.onConfirm,
     this.onCancel,
-    DatePickerTheme? theme,
+    DatePickerTheme theme,
     this.barrierLabel,
     this.locale,
-    RouteSettings? settings,
-    BasePickerModel? pickerModel,
+    RouteSettings settings,
+    BasePickerModel pickerModel,
   })  : this.pickerModel = pickerModel ?? DatePickerModel(),
         this.theme = theme ?? DatePickerTheme(),
         super(settings: settings);
 
-  final bool? showTitleActions;
-  final DateChangedCallback? onChanged;
-  final DateChangedCallback? onConfirm;
-  final DateCancelledCallback? onCancel;
-  final LocaleType? locale;
+  final bool showTitleActions;
+  final DateChangedCallback onChanged;
+  final DateChangedCallback onConfirm;
+  final DateCancelledCallback onCancel;
+  final LocaleType locale;
   final DatePickerTheme theme;
   final BasePickerModel pickerModel;
 
@@ -215,19 +215,19 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   bool get barrierDismissible => true;
 
   @override
-  final String? barrierLabel;
+  final String barrierLabel;
 
   @override
   Color get barrierColor => Colors.black54;
 
-  AnimationController? _animationController;
+  AnimationController _animationController;
 
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
     _animationController =
-        BottomSheet.createAnimationController(navigator!.overlay!);
-    return _animationController!;
+        BottomSheet.createAnimationController(navigator.overlay);
+    return _animationController;
   }
 
   @override
@@ -249,18 +249,18 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
 
 class _DatePickerComponent extends StatefulWidget {
   _DatePickerComponent({
-    Key? key,
-    required this.route,
-    required this.pickerModel,
+    Key key,
+     this.route,
+     this.pickerModel,
     this.onChanged,
     this.locale,
   }) : super(key: key);
 
-  final DateChangedCallback? onChanged;
+  final DateChangedCallback onChanged;
 
   final _DatePickerRoute route;
 
-  final LocaleType? locale;
+  final LocaleType locale;
 
   final BasePickerModel pickerModel;
 
@@ -271,7 +271,7 @@ class _DatePickerComponent extends StatefulWidget {
 }
 
 class _DatePickerState extends State<_DatePickerComponent> {
-  late FixedExtentScrollController leftScrollCtrl,
+   FixedExtentScrollController leftScrollCtrl,
       middleScrollCtrl,
       rightScrollCtrl;
 
@@ -296,15 +296,15 @@ class _DatePickerState extends State<_DatePickerComponent> {
     DatePickerTheme theme = widget.route.theme;
     return GestureDetector(
       child: AnimatedBuilder(
-        animation: widget.route.animation!,
-        builder: (BuildContext context, Widget? child) {
+        animation: widget.route.animation,
+        builder: (BuildContext context, Widget child) {
           final double bottomPadding = MediaQuery.of(context).padding.bottom;
           return ClipRect(
             child: CustomSingleChildLayout(
               delegate: _BottomPickerLayout(
-                widget.route.animation!.value,
+                widget.route.animation.value,
                 theme,
-                showTitleActions: widget.route.showTitleActions!,
+                showTitleActions: widget.route.showTitleActions,
                 bottomPadding: bottomPadding,
               ),
               child: GestureDetector(
@@ -322,7 +322,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   void _notifyDateChanged() {
     if (widget.onChanged != null) {
-      widget.onChanged!(widget.pickerModel.finalTime()!);
+      widget.onChanged(widget.pickerModel.finalTime());
     }
   }
 
@@ -495,7 +495,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
               onPressed: () {
                 Navigator.pop(context);
                 if (widget.route.onCancel != null) {
-                  widget.route.onCancel!();
+                  widget.route.onCancel();
                 }
               },
             ),
@@ -512,7 +512,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
               onPressed: () {
                 Navigator.pop(context, widget.pickerModel.finalTime());
                 if (widget.route.onConfirm != null) {
-                  widget.route.onConfirm!(widget.pickerModel.finalTime()!);
+                  widget.route.onConfirm(widget.pickerModel.finalTime());
                 }
               },
             ),
@@ -541,8 +541,8 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   });
 
   final double progress;
-  final int? itemCount;
-  final bool? showTitleActions;
+  final int itemCount;
+  final bool showTitleActions;
   final DatePickerTheme theme;
   final double bottomPadding;
 
